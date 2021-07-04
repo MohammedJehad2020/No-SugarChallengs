@@ -23,10 +23,13 @@ class ProgramsController extends Controller
         if ($request->name) {
             $programs = Program::when($request->name, function ($query, $value) {
                 $query->where('programs.name', 'LIKE', "%{$value}%");
-            })->orderBy('name', 'ASC')->paginate();
+            })
+            ->orderBy('name', 'ASC')
+            ->status('فعال')
+            ->paginate();
             
         } else {
-            $programs = Program::latest()->orderBy('name', 'ASC')->paginate();
+            $programs = Program::latest()->orderBy('name', 'ASC')->status('فعال')->paginate();
         }
 
 
@@ -96,7 +99,7 @@ class ProgramsController extends Controller
      */
     public function edit($id)
     {
-        $program = Program::find($id);
+        $program = Program::findOrFail($id);
         $this->authorize('update', $program);
 
         return view('admin.programs.edit', [
@@ -157,5 +160,34 @@ class ProgramsController extends Controller
 
         return redirect()->route('admin.programs.index')
             ->with('success', "البرنامج ($program->name) تم حذفه !");
+    }
+
+    // return deleted program
+    public function trash(){
+        return view('admin.programs.trash', [
+            'programs' => Program::onlyTrashed()->paginate(),
+        ]);
+    }
+
+//  function for restore program from trashed
+    public function restore($id){
+        $program = Program::onlyTrashed()->findOrFail($id);
+        $program->restore();
+
+        return redirect()->route('admin.programs.trash')
+            ->with('success', "تم استرجاع البرنامج ($program->name)بنجاح !");
+    }
+
+    //  function for deleted program from trashed
+    public function forceDelete($id){
+        $program = Program::onlyTrashed()->findOrFail($id);
+        $program->forceDelete();
+
+        return redirect()->route('admin.programs.trash')
+            ->with('success', "تم حذف البرنامج ($program->name) !");
+    }
+    public function test()
+    {
+        return view('admin.programs.test');
     }
 }

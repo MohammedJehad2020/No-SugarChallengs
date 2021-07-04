@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\CheckUserType;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProgramsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,11 @@ Route::namespace('Admin')
    ->as('admin.')
    ->middleware('auth', 'user.type:super-admin,doctor')
    ->group(function(){
+
+     Route::get('programs/test', 'ProgramsController@test')->name('test');
+     Route::get('programs/trash', 'ProgramsController@trash')->name('programs.trash');
+     Route::put('programs/trash/{id}', [ProgramsController::class , 'restore'])->name('programs.restore');
+     Route::delete('programs/trash/{id}', [ProgramsController::class , 'forceDelete'])->name('programs.force-delete');
 
      Route::resource('programs', 'ProgramsController');
 
