@@ -3,6 +3,10 @@
 use App\Http\Middleware\CheckUserType;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProgramsController;
+use App\Http\Controllers\ProgramsController as HomeProgramsController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +19,21 @@ use App\Http\Controllers\Admin\ProgramsController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+Route::get('programs/{id}', [HomeProgramsController::class, 'show'])->name('programs.show');
+Route::get('cart', [CartController::class, 'index'])->name('cart');
+Route::post('cart', [CartController::class, 'store']);
+
+Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('checkout', [CheckoutController::class, 'store']);
+
 
 
 Route::namespace('Admin')

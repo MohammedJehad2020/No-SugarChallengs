@@ -1,5 +1,7 @@
-<x-dashboard-layout>
+<x-admin-layout>
 
+<div>
 
+</div>
 
-</x-dashboard-layout>
+</x-admin-layout>

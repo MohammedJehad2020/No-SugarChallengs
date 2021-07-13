@@ -17,7 +17,10 @@ class Role extends Model
         'abilities' => 'json'
     ];
 
-    public function users(){
+    public function users()
+    {
         return $this->belongsToMany(User::class);
     }
+
+   
 }

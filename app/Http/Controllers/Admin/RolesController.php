@@ -50,7 +50,7 @@ class RolesController extends Controller
 
         $role = Role::create($request->all());
 
-        return redirect()->route('admin.roles.index')->with('succes', 'Role Created');
+        return redirect()->route('admin.roles.index')->with('succes', 'تم إنشاء الصلاحية بنجاح');
     }
 
     /**
@@ -97,7 +97,7 @@ class RolesController extends Controller
         $role->update($request->all());
 
         return redirect()->route('admin.roles.index')
-            ->with('succes', 'Role Updated!');
+            ->with('succes', 'تم تحيديث الصلاحية بنجاح !');
     }
 
     /**
@@ -111,6 +111,6 @@ class RolesController extends Controller
         $role = Role::findOrFail($id);
         $role->delete();
 
-        return redirect()->route('admin.roles.index')->with('success', 'Role Deleted!');
+        return redirect()->route('admin.roles.index')->with('success', 'تم حذف الصلاحية');
     }
 }

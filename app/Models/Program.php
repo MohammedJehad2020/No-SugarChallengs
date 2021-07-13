@@ -33,9 +33,9 @@ class Program extends Model
     // $program->image_url
     public function getImageUrlAttribute(){
        if($this->image){
-           if(strpos($this->image, 'http') === 0){
-               return $this->image;
-           }
+        //    if(strpos($this->image, 'http') === 0){
+        //        return $this->image;
+        //    }
            return asset('uploads/' . $this->image);
            return Storage::disk('uploads')->url($this->images);
        }
