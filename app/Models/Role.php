@@ -22,5 +22,11 @@ class Role extends Model
         return $this->belongsToMany(User::class);
     }
 
+    
+    public function patients()
+    {
+        return $this->belongsToMany(Patient::class);
+    }
+
    
 }

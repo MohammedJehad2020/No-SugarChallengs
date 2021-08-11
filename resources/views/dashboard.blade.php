@@ -1,7 +1,7 @@
 <x-admin-layout>
 
-<div>
+    <div>
 
-</div>
-
+    </div>
+   
 </x-admin-layout>

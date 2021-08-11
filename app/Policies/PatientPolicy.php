@@ -24,8 +24,9 @@ class PatientPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasAbility('programs.view-any');
+        return $user->hasAbility('patients.view-any');
     }
+
 
     /**
      * Determine whether the user can view the model.
@@ -36,7 +37,7 @@ class PatientPolicy
      */
     public function view(User $user, Patient $patient)
     {
-        return $user->hasAbility('programs.view');
+        return $user->hasAbility('patients.view');
     }
 
     /**
@@ -47,7 +48,7 @@ class PatientPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAbility('programs.create');
+        return $user->hasAbility('patients.create');
     }
 
     /**
@@ -59,7 +60,7 @@ class PatientPolicy
      */
     public function update(User $user, Patient $patient)
     {
-        return $user->hasAbility('programs.update');
+        return $user->hasAbility('patients.update');
     }
 
     /**
@@ -71,7 +72,7 @@ class PatientPolicy
      */
     public function delete(User $user, Patient $patient)
     {
-        return $user->hasAbility('programs.delete');
+        return $user->hasAbility('patients.delete');
     }
 
     /**
@@ -83,7 +84,7 @@ class PatientPolicy
      */
     public function restore(User $user, Patient $patient)
     {
-        //
+        // return $user->hasAbility('patients.restore');
     }
 
     /**
@@ -95,6 +96,6 @@ class PatientPolicy
      */
     public function forceDelete(User $user, Patient $patient)
     {
-        //
+        // return $user->hasAbility('patients.forceDelete');
     }
 }

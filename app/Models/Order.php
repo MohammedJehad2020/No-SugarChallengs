@@ -14,6 +14,10 @@ class Order extends Model
          'weight', 'country_code', 'postal_code', 'status',
     ];
 
+    protected $casts =[
+       'created_at' => 'datetime',
+    ];
+
     public function items(){
         return $this->hasMany(OrderItem::class);
     }

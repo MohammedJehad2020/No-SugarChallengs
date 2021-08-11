@@ -16,7 +16,8 @@ class CreatePatientsTable extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->string('email');
-            $table->integer('phone');
+            $table->string('phone');
+            $table->enum('status', ['الانتظار', 'الرئيسية'])->after('email');
             $table->unsignedFloat('weight');
             $table->unsignedFloat('height');
             $table->unsignedFloat('sugar_level');

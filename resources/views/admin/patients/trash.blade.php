@@ -80,31 +80,31 @@
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             <div>
-                                                            @can('edit', $patient)
+                                                            @can('restore', $patient)
                                                                 <form
-                                                                    action="{{ route('admin.patients.edit', $patient->id) }}"
-                                                                    method="get">
+                                                                    action="{{ route('admin.patients.restore', $patient->id) }}" method="post">
                                                                     @csrf
 
-                                                                    @method('edit')
+                                                                    @method('put')
                                                                     <button type="submit"
-                                                                        class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</button>
+                                                                        class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">استرجاع</button>
                                                                 </form>
-                                                                @endcan
+                                                            @endcan    
                                                             </div>
 
-                                                           
                                                             <div class="me-1">
+                                                            @can('force-delete', $patient)
                                                                 <form
-                                                                    action="{{ route('admin.patients.destroy', $patient->id) }}" method="post">
+                                                                    action="{{ route('admin.patients.force-delete', $patient->id) }}"
+                                                                    method="post">
                                                                     @csrf
 
                                                                     @method('delete')
                                                                     <button type="submit"
                                                                         class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>
-                                                                </form>             
+                                                                </form>
+                                                                @endcan
                                                             </div>
-                                                            
                                                         </div>
                                                     </td>
                                                 </tr>

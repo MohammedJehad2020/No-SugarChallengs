@@ -27,7 +27,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع المستخدمين</h4>
+                                    <h4 class="card-title">قائمة الانتظار </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -39,19 +39,19 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div>
+                                <!-- <div>
                                     <a href="{{ route('admin.patients.create') }}"
                                         class="btn btn-outline-success btn-min-width box-shadow-3 ml-2 mb-1">إنشاء</a>
-                                </div>
+                                </div> -->
 
 
 
-                                <form action="{{ URL::current() }}" method="get" class="d-flex col-md-10">
+                                <!-- <form action="{{ URL::current() }}" method="get" class="d-flex col-md-10">
                                     <input type="text" name="name" class="form-control ml-1 mr-1"
                                         placeholder="ادخل اسم البرنامج">
                                     <button type="submit"
                                         class="btn btn-outline-secondary box-shadow-3 mr-1 mb-1">بحث</button>
-                                </form>
+                                </form> -->
 
                                 <x-alert />
 
@@ -80,7 +80,7 @@
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             <div>
-                                                            @can('edit', $patient)
+                                                           
                                                                 <form
                                                                     action="{{ route('admin.patients.edit', $patient->id) }}"
                                                                     method="get">
@@ -90,7 +90,7 @@
                                                                     <button type="submit"
                                                                         class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</button>
                                                                 </form>
-                                                                @endcan
+                                                                
                                                             </div>
 
                                                            

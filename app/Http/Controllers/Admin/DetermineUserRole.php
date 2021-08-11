@@ -14,7 +14,7 @@ class DetermineUserRole extends Controller
      //   function for determine role for users
      public function determineUserRole()
      {
-         $users = User::all();
+         $users = User::where('type', 'super-admin')->orWhere('type', 'doctor')->get();
          $roles = Role::paginate();
  
          return view('admin.roles.userRole', [
@@ -33,9 +33,9 @@ class DetermineUserRole extends Controller
         $role_id = $request->post('role_id');
         $user_id = $request->post('user_id');
 
-        DB::insert('insert into role_user (role_id, user_id) values (?, ?)', [$role_id, $user_id]);
-
-        return redirect()->route('admin.roles.userRole')->with('succes', 'added User Role Successfully');
+        DB::insert('insert into role_user(role_id, user_id) values (?, ?)', [$role_id, $user_id]);
+      
+        return redirect()->back()->with('succes', 'added User Role Successfully');
      }
      
 }

@@ -16,6 +16,8 @@ class PatientsController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('view-any', Patient::class);
+
         if ($request->name){
             $patients = Patient::when($request->name, function ($query, $value) {
                 $query->where('patients.name', 'LIKE', "%{$value}%");
@@ -32,6 +34,20 @@ class PatientsController extends Controller
         ]);
     }
 
+
+    //  function for show wating patints
+    public function wating(Request $request)
+    {
+    
+        $patients = Patient::with('program')->where('status', '=', 'الانتظار')->paginate();
+        
+        return view('admin.patients.wating', [
+            'patients' => $patients,
+            'programs' => Program::all(),
+        ]);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -39,7 +55,8 @@ class PatientsController extends Controller
      */
     public function create()
     {     
-        
+        $this->authorize('create', Patient::class);
+
         return view('admin.patients.create', [
             'patient' => new Patient(),
             'programs' => Program::all(),
@@ -54,6 +71,8 @@ class PatientsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Patient::class);
+
         $request->validate(Patient::validatePatientInfo());
        
         $patient = new Patient();
@@ -93,6 +112,7 @@ class PatientsController extends Controller
     public function edit($id)
     {
         $patient = Patient::findOrFail($id);
+        $this->authorize('update', $patient);
         
         
         return view('admin.patients.edit', [
@@ -111,6 +131,8 @@ class PatientsController extends Controller
     public function update(Request $request, $id)
     {
         $patient = Patient::findOrFail($id);
+        $this->authorize('update', $patient);
+
         $request->validate(Patient::validatePatientInfo($id));
 
         $patient->name = $request->name;
@@ -139,9 +161,36 @@ class PatientsController extends Controller
     public function destroy($id)
     {
         $patient = Patient::findOrFail($id);
+        $this->authorize('delete', $patient);
         $patient->delete();
 
         return redirect()->route('admin.patients.index')
             ->with('success', "المستخدم ($patient->name) تم حذفه!");
+    }
+
+    
+    public function trash()
+    {
+        return view('admin.patients.trash', [
+            'patients' => Patient::onlyTrashed()->paginate(),
+        ]);
+    }
+
+    public function restore($id)
+    {
+        $patient = Patient::onlyTrashed()->findOrFail($id);
+        $patient->restore();
+        return redirect()
+            ->route('admin.patients.trash')
+            ->with('success', 'تم استرجاع الحساب');
+    }
+
+    public function forceDelete($id)
+    {
+        $patient = Patient::onlyTrashed()->findOrFail($id);
+        $patient->forceDelete();
+        return redirect()
+            ->route('admin.patients.trash')
+            ->with('success', 'تم حذف الحساب.');
     }
 }

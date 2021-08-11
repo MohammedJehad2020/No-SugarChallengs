@@ -24,6 +24,11 @@ class Patient extends Model
         return $this->belongsTo(Program::class)->withDefault();
     }
 
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
     public static function validatePatientInfo($id = 0)
     {
         return [
@@ -39,7 +44,7 @@ class Patient extends Model
                 'required',
                 new CheckAge(),
             ],
-            'phone' => 'required',
+            'phone' => 'required|min:9|max:12',
             'weight' => 'required|numeric|max:255|min:35',
             'height' => 'required|numeric',
             'country' => 'required',
@@ -47,11 +52,5 @@ class Patient extends Model
         ];
     }
 
-    // function for validate input 
-    public static function validateRules()
-    {
-        return [
-            'name' => 'required|string|max:255|min:3',
-        ];
-    }
+ 
 }

@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="{{ asset('assets/front/plugins/revolution/css/navigation.css') }}">
     <!-- Custom-->
     <link rel="stylesheet" href="{{ asset('assets/front/css/style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css" rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Quicksand:300,400,500,700"
@@ -56,7 +57,10 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
-                        <div class="header__actions"><a href="#">Login & Regiser</a>
+                        <div class="header__actions">
+                            @guest('web')
+                            <a href="{{ route('login') }}">Login & Regiser</a>
+                            @endguest
                             <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Language<i
                                         class="fa fa-angle-down"></i></a>

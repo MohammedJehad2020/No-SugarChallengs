@@ -13,4 +13,14 @@ class HomeController extends Controller
             'latest' => $latest,
         ]);
     }
+
+
+    public function medical(){
+        $latest = Program::latest()->take(10)->get();
+        return view('front.medical', [
+            'latest' => $latest,
+        ]);
+    } 
+    
+
 }

@@ -32,7 +32,19 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+     //check user type if admin inter dashboard else redirect home Page 
+        $user = Auth::user();
+        
+        if($user->type == 'super-admin'){
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }elseif($user->type == 'doctor'){
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }else{
+            return redirect('/');
+        }
+        
+
+        
     }
 
     /**

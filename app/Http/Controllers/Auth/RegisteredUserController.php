@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Patient;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -45,9 +46,17 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // add patient account to patients table
+        // $patient = Patient::create([
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'phone' => '0599999999',
+        // ]);
+
         event(new Registered($user));
 
         Auth::login($user);
+        // Auth::login($patient);
 
         return redirect(RouteServiceProvider::HOME);
     }
